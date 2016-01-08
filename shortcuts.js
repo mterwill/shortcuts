@@ -10,7 +10,11 @@ var shortcuts;
 var server = http.createServer(function(request, response) {
     var parsed = url.parse(request.url, true);
 
-    if ((parsed.pathname in shortcuts) && !('delete' in parsed.query)) {
+    if (parsed.pathname === '/ls') {
+        // List all shortcuts.
+        response.write(JSON.stringify(shortcuts));
+
+    } else if ((parsed.pathname in shortcuts) && !('delete' in parsed.query)) {
         // Found shortcut, redirect.
         response.writeHead(301, { Location: shortcuts[parsed.pathname] });
 
@@ -39,12 +43,13 @@ var server = http.createServer(function(request, response) {
 });
 
 fs.readFile(FILE, (err, data) => {
-  if (err) {
-      shortcuts = { };
-  } else {
-      JSON.parse(fs.readFileSync(FILE));
-  }
+    try {
+        if (err) throw err;
+        shortcuts = JSON.parse(fs.readFileSync(FILE));
+    } catch (e) {
+        shortcuts = { };
+    }
 
-  server.listen(PORT);
-  console.log('Server is listening');
+    server.listen(PORT);
+    console.log('Server is listening');
 });
