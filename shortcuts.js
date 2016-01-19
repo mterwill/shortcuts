@@ -12,7 +12,13 @@ var server = http.createServer(function(request, response) {
 
     if (parsed.pathname === '/ls') {
         // List all shortcuts.
-        response.write(JSON.stringify(shortcuts));
+
+        const ordered = {};
+        Object.keys(shortcuts).sort().forEach(function(key) {
+            ordered[key] = shortcuts[key];
+        });
+
+        response.write(JSON.stringify(ordered, null, 2));
 
     } else if ((parsed.pathname in shortcuts) && !('delete' in parsed.query)) {
         // Found shortcut, redirect.
