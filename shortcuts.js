@@ -22,7 +22,7 @@ var server = http.createServer(function(request, response) {
 
     } else if ((parsed.pathname in shortcuts) && !('delete' in parsed.query)) {
         // Found shortcut, redirect.
-        response.writeHead(301, { Location: shortcuts[parsed.pathname] });
+        response.writeHead(302, { Location: shortcuts[parsed.pathname] });
 
     } else if ((parsed.pathname in shortcuts) && ('delete' in parsed.query)) {
         // Trying to delete an existing shortcut.
