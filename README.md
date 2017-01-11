@@ -1,6 +1,8 @@
 # Shortcuts
 A bare-bones Node.js bookmarking utility.
 
+    node shortcuts.js
+
 ## Usage
 To create a new shortcut:
 
@@ -25,6 +27,12 @@ To list all:
 
 
 ## Notes
-- There is no authentication/authorization. Anyone who can access the server can add/delete URLs.
-- The backend consists of a JSON file written to disk on shortcut update. Set the location by changing the ``FILE`` constant.
-- For quick access, consider aliasing to something short in ``/etc/hosts``.
+- There is no authentication/authorization. Anyone who can access the server can
+  add/delete URLs.
+- The backend consists of a JSON file written to disk on shortcut update. The
+  file is `shortcuts.json` by default, which can be customized by passing
+  `argv[2]`.
+- The server listens on port `8888` by default. This can be customized by
+  passing `argv[3]`.
+- For quick access, consider aliasing to something short in `/etc/hosts`, `go`
+  on my machine.
